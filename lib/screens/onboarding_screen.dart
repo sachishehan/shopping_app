@@ -31,7 +31,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   onPageChanged: (index) {
                     setState(() {
                       showDetailsPage = index == 3;
-                      print(showDetailsPage);
                     });
                   },
                   children: [
@@ -71,7 +70,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     controller: _controller,
                     count: 4,
                     effect: const WormEffect(
-                      activeDotColor: const Color(0xFFEC5F18),
+                      activeDotColor:  Color(0xFFEC5F18),
                       dotColor: Color.fromARGB(255, 214, 206, 201),
                     ),
                   ),
@@ -101,7 +100,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     : GestureDetector(
                       onTap: () {
                             //Navigate to the user dater screen
-                            Navigator.push(
+                            Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => UserDateScreen(), 
