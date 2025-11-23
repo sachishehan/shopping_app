@@ -14,14 +14,11 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-
   //current pade index
   int _currentPageIndex = 0;
   @override
   Widget build(BuildContext context) {
-
-
-    //screens list 
+    //screens list
     final List<Widget> screens = [
       const HomeScreen(),
       const InventoryScreen(),
@@ -43,33 +40,27 @@ class _MainScreenState extends State<MainScreen> {
           });
         },
 
-        selectedLabelStyle: TextStyle(
-          fontSize: 12,
+        selectedLabelStyle: const TextStyle(
+          fontSize: 11,
           fontWeight: FontWeight.w600,
         ),
+        unselectedLabelStyle: const TextStyle(fontSize: 11),
         items: [
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
+          const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           const BottomNavigationBarItem(
             icon: Icon(Icons.inventory),
             label: 'Inventory',
           ),
           BottomNavigationBarItem(
             icon: Container(
-              padding: const EdgeInsets.all(10),
-              decoration: const BoxDecoration(
-                color:buttonColor,
-                shape: BoxShape.circle
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: buttonColor,
+                shape: BoxShape.circle,
               ),
-              child: Icon(
-                Icons.add, 
-                color: backgroundColor,
-                size: 30,
-                ),
-              ),
-              label: '',
+              child: Icon(Icons.add, color: backgroundColor, size: 24),
+            ),
+            label: '',
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.list),
@@ -82,7 +73,6 @@ class _MainScreenState extends State<MainScreen> {
         ],
       ),
       body: screens[_currentPageIndex],
-      
     );
   }
 }
