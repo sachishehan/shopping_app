@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:quick/constant/colors.dart';
 import 'package:quick/constant/constant.dart';
 import 'package:quick/widgets/custom_button.dart';
+import 'package:quick/services/inventory_service.dart';
 
 class AddNewScreen extends StatefulWidget {
-  const AddNewScreen({super.key});
+  final VoidCallback? onItemAdded;
+  final VoidCallback? onNavigateBack;
+  
+  const AddNewScreen({super.key, this.onItemAdded, this.onNavigateBack});
 
   @override
   State<AddNewScreen> createState() => _AddNewScreenState();
@@ -163,38 +167,64 @@ class _AddNewScreenState extends State<AddNewScreen> {
       return;
     }
 
+    // Validate expiry date
+    if (_selectedExpiryDate == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please select expiry date')),
+      );
+      return;
+    }
+
+    // Create new inventory item
+    final inventoryService = InventoryService();
+    final newItem = inventoryService.createItem(
+      name: _nameController.text.trim(),
+      category: _selectedCategory!,
+      quantity: int.parse(_quantityController.text.trim()),
+      originalPrice: double.parse(_originalPriceController.text.trim()),
+      sellingPrice: double.parse(_sellingPriceController.text.trim()),
+      expiry: _selectedExpiryDate!,
+      imageUrl: _imageUrlController.text.trim(),
+      isListed: _isListed,
+    );
+
+    // Add item to inventory
+    inventoryService.addItem(newItem);
+
     // Show success dialog
     showDialog(
       context: context,
-      builder:
-          (context) => AlertDialog(
-            title: const Row(
-              children: [
-                Icon(Icons.check_circle, color: Colors.green, size: 28),
-                SizedBox(width: 12),
-                Text('Success!'),
-              ],
-            ),
-            content: const Text('Item added to your inventory successfully!'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context); // Close dialog
-                  _resetForm();
-                },
-                child: const Text('Add Another'),
-              ),
+      builder: (context) => AlertDialog(
+        title: const Row(
+          children: [
+            Icon(Icons.check_circle, color: Colors.green, size: 28),
+            SizedBox(width: 12),
+            Text('Success!'),
+          ],
+        ),
+        content: const Text('Item added to your inventory successfully!'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context); // Close dialog
+              _resetForm();
+            },
+            child: const Text('Add Another'),
+          ),
               ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context); // Close dialog
                   _resetForm();
-                  Navigator.pop(context); // Go back to previous screen
+                  // Navigate to inventory tab via callback
+                  if (widget.onItemAdded != null) {
+                    widget.onItemAdded!();
+                  }
                 },
                 style: ElevatedButton.styleFrom(backgroundColor: buttonColor),
                 child: const Text('Done'),
               ),
-            ],
-          ),
+        ],
+      ),
     );
   }
 
@@ -222,7 +252,11 @@ class _AddNewScreenState extends State<AddNewScreen> {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            if (widget.onNavigateBack != null) {
+              widget.onNavigateBack!();
+            }
+          },
         ),
         title: const Text(
           'Add New Item',
@@ -476,8 +510,10 @@ class _AddNewScreenState extends State<AddNewScreen> {
                                   ),
                                   TextButton(
                                     onPressed: () {
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
+                                      Navigator.pop(context); // Close dialog
+                                      if (widget.onNavigateBack != null) {
+                                        widget.onNavigateBack!();
+                                      }
                                     },
                                     style: TextButton.styleFrom(
                                       foregroundColor: Colors.red,
@@ -488,7 +524,9 @@ class _AddNewScreenState extends State<AddNewScreen> {
                               ),
                         );
                       } else {
-                        Navigator.pop(context);
+                        if (widget.onNavigateBack != null) {
+                          widget.onNavigateBack!();
+                        }
                       }
                     }
                   },

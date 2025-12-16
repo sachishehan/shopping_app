@@ -16,13 +16,29 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   //current pade index
   int _currentPageIndex = 0;
+  int _refreshKey = 0;
+
   @override
   Widget build(BuildContext context) {
     //screens list
     final List<Widget> screens = [
       const HomeScreen(),
-      const InventoryScreen(),
-      const AddNewScreen(),
+      InventoryScreen(key: ValueKey(_refreshKey)),
+      AddNewScreen(
+        onItemAdded: () {
+          // Switch to inventory tab and refresh
+          setState(() {
+            _currentPageIndex = 1;
+            _refreshKey++;
+          });
+        },
+        onNavigateBack: () {
+          // Navigate back to home tab
+          setState(() {
+            _currentPageIndex = 0;
+          });
+        },
+      ),
       const OrderScreen(),
       const ProfileScreen(),
     ];
@@ -37,6 +53,10 @@ class _MainScreenState extends State<MainScreen> {
         onTap: (index) {
           setState(() {
             _currentPageIndex = index;
+            // Refresh inventory screen when navigating to it
+            if (index == 1) {
+              _refreshKey++;
+            }
           });
         },
 

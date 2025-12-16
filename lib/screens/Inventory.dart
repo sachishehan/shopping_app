@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quick/constant/colors.dart';
 import 'package:quick/constant/constant.dart';
+import 'package:quick/services/inventory_service.dart';
 
 class InventoryScreen extends StatefulWidget {
   const InventoryScreen({super.key});
@@ -24,65 +25,9 @@ class _InventoryScreenState extends State<InventoryScreen> {
   String _selectedCategory = 'All';
   String _selectedFilter = 'All'; // All, Active, Expiring Soon, Expired
   String _query = '';
+  final InventoryService _inventoryService = InventoryService();
 
-  // Dummy inventory data - in real app, this would come from a database
-  final List<InventoryItem> _inventoryItems = [
-    InventoryItem(
-      id: '1',
-      name: 'Whole Wheat Bread',
-      category: 'Bakery',
-      quantity: 5,
-      originalPrice: 450,
-      sellingPrice: 250,
-      expiry: DateTime.now().add(const Duration(days: 2)),
-      imageUrl: 'https://images.unsplash.com/photo-1542838132-92c53300491e',
-      isListed: true,
-    ),
-    InventoryItem(
-      id: '2',
-      name: 'Fresh Milk 1L',
-      category: 'Dairy',
-      quantity: 3,
-      originalPrice: 320,
-      sellingPrice: 180,
-      expiry: DateTime.now().add(const Duration(hours: 18)),
-      imageUrl: 'https://images.unsplash.com/photo-1550583724-b2692b85b150',
-      isListed: true,
-    ),
-    InventoryItem(
-      id: '3',
-      name: 'Organic Tomatoes',
-      category: 'Produce',
-      quantity: 2,
-      originalPrice: 280,
-      sellingPrice: 150,
-      expiry: DateTime.now().add(const Duration(days: 1)),
-      imageUrl: 'https://images.unsplash.com/photo-1566837945700-30057527ade0',
-      isListed: false,
-    ),
-    InventoryItem(
-      id: '4',
-      name: 'Greek Yogurt 500g',
-      category: 'Dairy',
-      quantity: 4,
-      originalPrice: 480,
-      sellingPrice: 280,
-      expiry: DateTime.now().add(const Duration(days: 3)),
-      imageUrl: 'https://images.unsplash.com/photo-1559563458-527698bf5295',
-      isListed: true,
-    ),
-    InventoryItem(
-      id: '5',
-      name: 'Orange Juice 1L',
-      category: 'Drinks',
-      quantity: 6,
-      originalPrice: 350,
-      sellingPrice: 200,
-      expiry: DateTime.now().subtract(const Duration(days: 1)),
-      imageUrl: 'https://images.unsplash.com/photo-1542444459-db63c6b97e09',
-      isListed: false,
-    ),
-  ];
+  List<InventoryItem> get _inventoryItems => _inventoryService.items;
 
   List<InventoryItem> get _filteredItems {
     final cat = _selectedCategory;
@@ -132,6 +77,10 @@ class _InventoryScreenState extends State<InventoryScreen> {
     if (days == 0) return Colors.orange;
     if (days <= 1) return Colors.orange.shade300;
     return Colors.green;
+  }
+
+  void refresh() {
+    setState(() {});
   }
 
   @override
@@ -342,7 +291,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
           },
           onDelete: () {
             setState(() {
-              _inventoryItems.removeWhere((i) => i.id == item.id);
+              _inventoryService.removeItem(item.id);
             });
             ScaffoldMessenger.of(
               context,
