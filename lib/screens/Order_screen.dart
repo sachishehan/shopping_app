@@ -285,6 +285,13 @@ class _OrderScreenState extends State<OrderScreen> with SingleTickerProviderStat
       child: TabBar(
         controller: _tabController,
         indicator: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 8,
+              offset: const Offset(0, 3),
+            )
+          ],
           color: buttonColor,
           borderRadius: BorderRadius.circular(12),
         ),
@@ -301,7 +308,7 @@ class _OrderScreenState extends State<OrderScreen> with SingleTickerProviderStat
           });
         },
         tabs: const [
-          Tab(text: 'My Purchases'),
+          Tab(text: '  My Purchases   '  ),
           Tab(text: 'My Sales'),
         ],
       ),
