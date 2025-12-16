@@ -4,6 +4,7 @@ import 'package:quick/constant/constant.dart';
 import 'package:quick/screens/main_screen.dart';
 import 'package:quick/screens/user_data_scren.dart';
 import 'package:quick/widgets/custom_button.dart';
+import 'package:quick/services/auth_service.dart';
 // If your signup screen is in a different path, adjust this import:
 
 
@@ -54,13 +55,16 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> _onLogin() async {
     if (!_formKey.currentState!.validate()) return;
 
-    _emailController.text.trim();
-    _passwordController.text.trim();
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
 
     // TODO: Plug in your real auth here (Firebase, API, or compare with stored creds).
     // Example flow:
     // final ok = await AuthService.signIn(email: email, password: password);
     // if (!ok) { show error snackBar and return; }
+
+    // Set logged in status to true
+    await AuthService.setLoggedIn(true);
 
     if (!mounted) return;
     Navigator.pushReplacement(

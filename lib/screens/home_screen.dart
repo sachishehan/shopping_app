@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
       originalPrice: 700,
       distanceKm: 1.2,
       expiry: DateTime.now().add(const Duration(days: 2)),
-      imageUrl: 'https://images.unsplash.com/photo-1542838132-92c53300491e',
+      imageUrl: 'https://www.hairybikers.com/uploads/images/_recipeImage/BrownLoaf.jpg',
     ),
     _Deal(
       id: '2',
@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
       originalPrice: 960,
       distanceKm: 0.9,
       expiry: DateTime.now().add(const Duration(days: 1)),
-      imageUrl: 'https://images.unsplash.com/photo-1559563458-527698bf5295',
+      imageUrl: 'https://greenmountaincreamery.com/wp-content/uploads/2017/08/Untitled-design164.png',
     ),
     _Deal(
       id: '3',
@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
       originalPrice: 520,
       distanceKm: 2.4,
       expiry: DateTime.now().add(const Duration(days: 3)),
-      imageUrl: 'https://images.unsplash.com/photo-1566837945700-30057527ade0',
+      imageUrl: 'https://www.lesuipackaging.com/uploads/image/20230117/10/disposable-fruit-cup-containers_1673922298.jpg',
     ),
     _Deal(
       id: '4',
@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
       originalPrice: 170,
       distanceKm: 3.1,
       expiry: DateTime.now().add(const Duration(hours: 20)),
-      imageUrl: 'https://images.unsplash.com/photo-1604908554027-9129f71fd9e6',
+      imageUrl: 'https://www.foodcoachforme.com/wp-content/uploads/2020/03/chicken-with-garlic-and-rosemary-scaled.jpg',
     ),
     _Deal(
       id: '5',
@@ -96,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
       originalPrice: 500,
       distanceKm: 1.8,
       expiry: DateTime.now().add(const Duration(days: 4)),
-      imageUrl: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e',
+      imageUrl: 'https://www.allrecipes.com/thmb/JCMYBY68TG5gPrZLIx8x_AgcVRg=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/9827-chocolate-chocolate-chip-cookies-i--DDMFS-092-4x3-c8227481fd804270a50256498cf8f05f.jpg',
     ),
     _Deal(
       id: '6',
@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
       originalPrice: 620,
       distanceKm: 0.7,
       expiry: DateTime.now().add(const Duration(days: 2)),
-      imageUrl: 'https://images.unsplash.com/photo-1542444459-db63c6b97e09',
+      imageUrl: 'https://www.verywellhealth.com/thmb/90ZExhTVdD7A4vaC3Uc4-4Btb-c=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/VWH-GettyImages-1465038961-90038f19760a4d0b8503f28598535c8b.jpg',
     ),
   ];
 

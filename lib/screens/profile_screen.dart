@@ -3,6 +3,7 @@ import 'package:quick/constant/colors.dart';
 import 'package:quick/constant/constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:quick/screens/login_page.dart';
+import 'package:quick/services/auth_service.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -68,9 +69,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
 
     if (confirm == true && context.mounted) {
-      // Clear user data
+      // Clear user data and set logged in to false
       final prefs = await SharedPreferences.getInstance();
       await prefs.clear();
+      await AuthService.setLoggedIn(false);
 
       // Navigate to login
       if (context.mounted) {

@@ -4,6 +4,7 @@ import 'package:quick/constant/constant.dart';
 import 'package:quick/screens/login_page.dart';
 import 'package:quick/screens/main_screen.dart';
 import 'package:quick/services/user_services.dart';
+import 'package:quick/services/auth_service.dart';
 import 'package:quick/widgets/custom_button.dart';
 
 class UserDateScreen extends StatefulWidget {
@@ -224,7 +225,7 @@ class _UserDateScreenState extends State<UserDateScreen> {
                             final password = _passwordController.text.trim();
                             final confirmPassword =
                                 _confirmPasswordController.text.trim();
-// safe due to validator
+                            // safe due to validator
 
                             // TODO: persist accountType too (extend UserServices if needed)
                             await UserServices.storeUserDetails(
@@ -236,6 +237,9 @@ class _UserDateScreenState extends State<UserDateScreen> {
                             );
                             // Example:
                             // await UserServices.storeAccountType(accountType);
+
+                            // Set logged in status to true after registration
+                            await AuthService.setLoggedIn(true);
 
                             // navigate to main
                             if (context.mounted) {
